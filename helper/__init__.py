@@ -71,6 +71,12 @@ class Forecast:
         ]
 
         for row in table.itertuples(index=False):
+            # Handle edge case manually:
+            if getattr(row, constants.ColumnNames.NAME) == "Pok\u00e9mon TCG: Call of Legends":
+                string_buffer.append("// Pok\u00e9mon TCG: Call of Legends skipped; clashes with the 2023 Pokémon Trading Card Game Classic\n")
+                continue
+
+            # Typical case:
             string_buffer.append(f'  "{getattr(row, constants.ColumnNames.SET)}",')
             string_buffer.append(f'  // {getattr(row, constants.ColumnNames.NAME)}\n')
 
