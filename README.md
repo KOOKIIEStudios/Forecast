@@ -8,7 +8,7 @@ Being a form-automation application based around Pokémon TCG, CastFORM is a pla
 This project inherits its name from Castform's unique ability in the game.
 
 ## Tech Stack
-Weather Ball is developed using Python 3.12. The entry point is `main.py`.  
+Forecast is developed using Python 3.12. The entry point is `main.py`.  
 If you're using Chocolatey, install Python using the following command: `choco install python`, which should automatically add Python to Path.
 
 Forecast is intended to work with [CastFORM](https://github.com/BAA-Studios/CastFORM) v2.0.0 or newer. This is because it requires changes to the [deck_string_parser](https://github.com/BAA-Studios/CastFORM/blob/main/packages/deck_string_parser/README.md) internal library that is not available as of v1.2.4 (the last version for v1).
