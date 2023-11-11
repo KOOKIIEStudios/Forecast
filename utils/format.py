@@ -15,18 +15,3 @@
 # along with Weather Ball. If not, see <https://www.gnu.org/licenses/>.
 #
 # Contact via Discord: `sessionkookiie`
-import sys
-
-from helper import Forecast
-from utils import logger
-
-log = logger.get_logger(__name__)
-
-
-if __name__ == "__main__":
-    log.info("----- ForeCAST Set Abbreviation Generator for CastFORM -----")
-    forecast = Forecast()
-    forecast.generate_dart_file()
-    log.info("Completed! Now shutting down...")
-    logger.shutdown_logger()
-    sys.exit(0)

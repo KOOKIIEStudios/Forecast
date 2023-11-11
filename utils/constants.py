@@ -15,18 +15,26 @@
 # along with Weather Ball. If not, see <https://www.gnu.org/licenses/>.
 #
 # Contact via Discord: `sessionkookiie`
-import sys
+from enum import StrEnum
+from pathlib import Path
 
-from helper import Forecast
-from utils import logger
+REQUEST_URL = "https://bulbapedia.bulbagarden.net/w/api.php?action=parse&format=json&page=List_of_Pok%C3%A9mon_Trading_Card_Game_expansions"
+RAW_HTML = "download.txt"
+PREPROCESSED_HTML = "sanitised.txt"
 
-log = logger.get_logger(__name__)
+OUTPUT_FOLDER = Path.cwd() / "out"
+OUTPUT_FILE = OUTPUT_FOLDER / "set_abbreviations.dart"
 
 
-if __name__ == "__main__":
-    log.info("----- ForeCAST Set Abbreviation Generator for CastFORM -----")
-    forecast = Forecast()
-    forecast.generate_dart_file()
-    log.info("Completed! Now shutting down...")
-    logger.shutdown_logger()
-    sys.exit(0)
+class ColumnNames(StrEnum):
+    NAME = "full_name"
+    SET = "set_abb"
+
+
+SANITISATION_MAP = {
+    'colspan=\\"2\\"': "colspan=2",
+    "\\n": "",
+    "Name of Expansion": ColumnNames.NAME,
+    "Set abb.": ColumnNames.SET,
+}
+FILTER = "\\u2014"

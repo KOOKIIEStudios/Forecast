@@ -1,3 +1,20 @@
+# Copyright 2023 KOOKIIE
+#
+# This file is part of Forecast.
+# Weather Ball is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Forecast is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Weather Ball. If not, see <https://www.gnu.org/licenses/>.
+#
+# Contact via Discord: `sessionkookiie`
 """Generic logger module that wraps around Python's built-in logger.
 """
 from pathlib import Path
@@ -8,7 +25,7 @@ from logging.handlers import TimedRotatingFileHandler
 LOG_FORMAT = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 FORMATTER = logging.Formatter(LOG_FORMAT)
 LOG_DIR = Path("logs")
-ACTIVE_LOG_NAME = "logger.log"
+ACTIVE_LOG_NAME = "forecast.log"
 
 
 def get_log_path():
