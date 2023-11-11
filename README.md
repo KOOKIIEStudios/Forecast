@@ -1,19 +1,33 @@
-# python-template
-A template repository for Python 3 projects.
+# Forecast
+Forecast is a Python script that generates set abbreviations for [CastFORM](https://github.com/BAA-Studios/CastFORM).  
+It uses [Bulbapedia's](https://bulbapedia.bulbagarden.net/wiki/Main_Page) [Wikimedia web service API](https://bulbapedia.bulbagarden.net/wiki/Special:ApiSandbox) to fetch all known expansion pack information, which is then parsed and converted into a Dart file as a drop-in replacement in CastFORM.
 
-This template provides a logger, as well as set-up and start scripts.
+## A rose by any other name would smell as sweet
+Forecast is designed as a part of the toolchain for [CastFORM](https://github.com/BAA-Studios/CastFORM), a Pokémon registration sheet filler.  
+Being a form-automation application based around Pokémon TCG, CastFORM is a play on words using the name of one of the playable Pokémon.  
+This project inherits its name from Castform's unique ability in the game.
+
+## Tech Stack
+Weather Ball is developed using Python 3.12. The entry point is `main.py`.  
+If you're using Chocolatey, install Python using the following command: `choco install python`, which should automatically add Python to Path.
+
+Forecast is intended to work with [CastFORM](https://github.com/BAA-Studios/CastFORM) v2.0.0 or newer. This is because it requires changes to the [deck_string_parser](https://github.com/BAA-Studios/CastFORM/blob/main/packages/deck_string_parser/README.md) internal library that is not available as of v1.2.4 (the last version for v1).
 
 ## Usage
-1. Follow [this guide](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template#creating-a-repository-from-a-template) to create a repository from this template.
-2. Clone your repository, and `cd` to it
-3. If your repository requires external dependencies:
-    - Run `python -m venv venv` to create a `venv` folder for local dependencies
-    - Use `venv/scripts/activate` to start using the virtual environment
-    - Use `pip` to install the desired dependencies
-    - Use `pip freeze > requirements.txt` to export the list of depencencies
-4. (Bash-only) Instruct users to use `setup.sh` to set up their virtual environment in your `README.md`
-5. Instruct users to use `start.bat`/`start.sh` to run the program in your `README.md`
-6. Test run `main.py` using `start.bat`/`start.sh`
-7. Refer to the example in `main.py` to see how to import, instantiate, and use the logger
-    - Log files are saved to `/logs` and rotated at midnight.
-    - Log files are automatically excluded from git
+1. Clone, and `cd` to this repository
+2. Set up your virtual environment
+    - Linux: run `setup.sh`
+    - Windows: run `start.sh`
+3. Run `start.bat`/`start.sh` to run the program
+    - If unsure, select the virtual environment when prompted
+4. Check `./out` for the output file
+
+## Sandbox
+The `/sandbox` folder contains a Jupyter notebook for testing purposes. Features and fixes are tested here before being implemented in the code base.
+
+## Disclaimer
+**Forecast** is an open-source Python application that fetches formats Pokémon expansion pack information.  
+**Forecast** is part of the developer toolchain created for [CastFORM](https://github.com/BAA-Studios/CastFORM).  
+**Forecast** is non-monetised, and provided as is. Every reasonable effort has been taken to ensure correctness and reliability of **Forecast**. 
+We will not be liable for any special, direct, indirect, or consequential damages or any damages whatsoever resulting from 
+loss of use, data or profits, whether in an action if contract, negligence or other tortious action, arising out of or in connection with the use of **Forecast** (in part or in whole).
