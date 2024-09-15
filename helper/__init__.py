@@ -38,6 +38,18 @@ class Forecast:
     def __init__(self) -> None:
         self.log = logger.get_logger(__name__)
         self.response = scraper.fetch_contents(constants.REQUEST_URL)
+        self.set_filter = {
+            "TCG: Call of Legends",
+            "Wizards Black Star Promos",
+            "Nintendo Black Star Promos",
+            "DP Black Star Promos",
+            "HGSS Black Star Promos",
+            "BW Black Star Promos",
+            "XY Black Star Promos",
+            "SM Black Star Promos",
+            "SWSH Black Star Promos",
+            "McDonald's Collection",
+        }
 
     @staticmethod
     def generate_timestamp() -> str:
@@ -71,14 +83,26 @@ class Forecast:
         ]
 
         for row in table.itertuples(index=False):
-            # Handle edge case manually:
-            if getattr(row, constants.ColumnNames.NAME) == "Pok\u00e9mon TCG: Call of Legends":
-                string_buffer.append("// Pok\u00e9mon TCG: Call of Legends skipped; clashes with the 2023 Pokémon Trading Card Game Classic\n")
-                continue
+            # Handle edge cases manually (i.e. skip them):
+            for name in self.set_filter:
+                if name in getattr(row, constants.ColumnNames.NAME):
+                    self.log.debug(f"Skipped {getattr(row, constants.ColumnNames.SET)} {getattr(row, constants.ColumnNames.NAME)}")
+                    continue
 
             # Typical case:
             string_buffer.append(f'  "{getattr(row, constants.ColumnNames.SET)}",')
             string_buffer.append(f'  // {getattr(row, constants.ColumnNames.NAME)}\n')
+
+        # Handle edge cases manually (add missing sets and add explanation for edge cases):
+        string_buffer.append(f'  "TK",')
+        string_buffer.append(f"  // I have no idea what this is, but it's allowed in the 2025 competitions\n")
+        string_buffer.append(f'  "PR",')
+        string_buffer.append(f"  // Most Black Star Promos have been renamed as PR for the 2025 competitions\n")
+        string_buffer.append(f'  "MCD",')
+        string_buffer.append(f"  // McDonald's Collection sets have been renamed as MCD for the 2025 competitions\n")
+        string_buffer.append(
+            "  // Pok\u00e9mon TCG: Call of Legends skipped; clashes with the 2023 Pokémon Trading Card Game Classic\n"
+        )
 
         string_buffer.append("};\n")
         return string_buffer
