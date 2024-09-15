@@ -71,6 +71,15 @@ class Forecast:
             # read as table
             return parser.extract_relevant_tables(sanitised_html_file)
 
+    def has_unwanted_set(self, row: tuple) -> bool:
+        for name in self.set_filter:
+            if name in getattr(row, constants.ColumnNames.NAME):
+                self.log.debug(
+                    f"Skipped {getattr(row, constants.ColumnNames.SET)} {getattr(row, constants.ColumnNames.NAME)}"
+                )
+                return True
+        return False
+
     def format_as_lines(self, table: pd.DataFrame) -> list[str]:
         self.log.info("Generating Dart file contents")
         if table is None:
@@ -84,10 +93,8 @@ class Forecast:
 
         for row in table.itertuples(index=False):
             # Handle edge cases manually (i.e. skip them):
-            for name in self.set_filter:
-                if name in getattr(row, constants.ColumnNames.NAME):
-                    self.log.debug(f"Skipped {getattr(row, constants.ColumnNames.SET)} {getattr(row, constants.ColumnNames.NAME)}")
-                    continue
+            if self.has_unwanted_set(row):
+                continue
 
             # Typical case:
             string_buffer.append(f'  "{getattr(row, constants.ColumnNames.SET)}",')
