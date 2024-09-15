@@ -101,7 +101,7 @@ class Forecast:
         string_buffer.append(f'  "MCD",')
         string_buffer.append(f"  // McDonald's Collection sets have been renamed as MCD for the 2025 competitions\n")
         string_buffer.append(
-            "  // Pok\u00e9mon TCG: Call of Legends skipped; clashes with the 2023 Pokémon Trading Card Game Classic\n"
+            "  // Call of Legends skipped; clashes with the 2023 PTCG Classic\n"
         )
 
         string_buffer.append("};\n")
@@ -111,7 +111,7 @@ class Forecast:
         self.log.info("Writing out to file: %s", file_path.name)
         if not lines:
             self.log.error("No content to write!")
-        with open(file_path, "w") as fd:
+        with open(file_path, "w", encoding="utf-8") as fd:
             fd.writelines(lines)
         self.log.info("File saved in: %s", file_path.parent)
 
